@@ -13,6 +13,3 @@ local builtin = require("telescope.builtin")
 vim.keymap.set('n', '<C-t>', builtin.find_files, { desc = 'Find Files' })
 
 --vim.keymap.set('n', '<C-S-t>', ':Telescope projects<CR>', { desc = 'Find Projects' })
-
-
--- map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")

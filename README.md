@@ -1,3 +1,10 @@
+**RyyAn___13 neo vim config!!!**
+
+My nvim configs is focused in Roblox enviroment development, then only expect luau-LSP, rojo configurations,
+some visual stuff and some keymappings which i like :)
+
+[Default nvchad messages below]
+
 **This repo is supposed to used as config by NvChad users!**
 
 - The main nvchad repo (NvChad/NvChad) is used as a plugin by this repo.
