@@ -3,7 +3,7 @@
 My nvim configs is focused in Roblox enviroment development, then only expect luau-LSP, rojo configurations,
 some visual stuff and some keymappings which i like :)
 
-[Default nvchad messages below]
+(Default NvChad messages below)
 
 **This repo is supposed to used as config by NvChad users!**
 
