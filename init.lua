@@ -29,6 +29,12 @@ require("lazy").setup({
       },
    },
 
+	{
+		 "ThePrimeagen/harpoon",
+		 branch = "harpoon2",
+		 dependencies = { "nvim-lua/plenary.nvim" }
+	},
+
    { import = "plugins" },
 }, lazy_config)
 
