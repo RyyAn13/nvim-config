@@ -1,5 +1,5 @@
 -- load defaults i.e lua_lsp
-require("nvchad.configs.lspconfig").defaults()
+--require("nvchad.configs.lspconfig").defaults()
 
 local lspconfig = require "lspconfig"
 
@@ -27,20 +27,6 @@ end
 -- Luau lsp (Roblox)
 ---@alias luau-lsp.PlatformType "standard" | "roblox"
 ---@alias luau-lsp.RobloxSecurityLevel "None" | "LocalUserSecurity" | "PluginSecurity" | "RobloxScriptSecurity"
-
-local function is_rojo_project(path)
-   local HAVE_ROJO_FILE = vim.fs.root(0, function(name)
-      return name:match ".+%.project%.json$"
-   end)
-
-   local HAVE_OTHERS_FILE = path and vim.fs.root(path, {
-      ".git",
-      "selene.toml",
-      "selene.yml",
-   })
-
-   return HAVE_ROJO_FILE or HAVE_OTHERS_FILE
-end
 
 ---@class luau-lsp.Config
 local defaults = {
@@ -80,14 +66,26 @@ local defaults = {
       cmd = { "luau-lsp", "lsp" },
       ---@type fun(path: string): string?
       root_dir = function(path)
-         return is_rojo_project(path)
-      end,
-   },
+         return vim.fs.root(path, function(name)
+            return name:match ".+%.project%.json$"
+         end) or vim.fs.root(path, {
+               ".git",
+               ".luaurc",
+               "stylua.toml",
+               "selene.toml",
+               "selene.yml",
+            })
+      end
+   }
 }
 
-require("luau-lsp").setup(defaults)
+local function rojo_project()
+   return vim.fs.root(0, function(name)
+      return name:match ".+%.project%.json$"
+   end)
+end
 
-if is_rojo_project() then
+if rojo_project() then
    vim.filetype.add {
       extension = {
          lua = function(path)
@@ -96,3 +94,5 @@ if is_rojo_project() then
       },
    }
 end
+
+require("luau-lsp").setup(defaults)

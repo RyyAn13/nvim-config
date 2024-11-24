@@ -18,7 +18,7 @@ vim.keymap.set('n', '<C-l>', '<C-w>l', KeymapInfo)
 vim.keymap.set('n', '[', '^', KeymapInfo)
 
 -- Disable highlighting of visual mode selection hints
-vim.opt.visualbell = true
+vim.opt.visualbell = false
 
 -- telescope
 local builtin = require("telescope.builtin")
