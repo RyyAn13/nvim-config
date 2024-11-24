@@ -34,3 +34,22 @@ vim.keymap.set("n", "<leader>4", function() Harpoon:list():select(4) end)
 
 --vim.keymap.set("n", "<C-p>", function() Harpoon:list():prev() end, KeymapInfo)
 --vim.keymap.set("n", "<C-m>", function() Harpoon:list():next() end, KeymapInfo)
+
+-- Spotify integrantion
+local spotify = require'nvim-spotify'
+
+spotify.setup {
+	-- default opts
+	status = {
+		update_interval = 10000, -- the interval (ms) to check for what's currently playing
+		format = '%s %t by %a' -- spotify-tui --format argument
+	}
+}
+
+vim.keymap.set("n", "<leader>so", ":Spotify<CR>", KeymapInfo) -- Open Spotify Search window
+vim.keymap.set("n", "<leader>sd", ":SpotifyDevices<CR>", KeymapInfo) -- Open Spotify Devices window
+vim.keymap.set("n", "<leader>sn", "<Plug>(SpotifySkip)", KeymapInfo) -- Skip the current track
+vim.keymap.set("n", "<leader>sp", "<Plug>(SpotifyPause)", KeymapInfo) -- Pause/Resume the current track
+vim.keymap.set("n", "<leader>ss", "<Plug>(SpotifySave)", KeymapInfo) -- Add the current track to your library
+vim.keymap.set("n", "<leader>sb", "<Plug>(SpotifyPrev)", KeymapInfo) -- Go back to the previous track
+vim.keymap.set("n", "<leader>sh", "<Plug>(SpotifyShuffle)", KeymapInfo) -- Toggles shuffle mode
