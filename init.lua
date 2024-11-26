@@ -36,6 +36,10 @@ require("lazy").setup({
 	},
 
 	{
+		"L3MON4D3/LuaSnip"
+	},
+
+	{
 		'KadoBOT/nvim-spotify',
 		dependencies = { "nvim-telescope/telescope.nvim" }
 	},

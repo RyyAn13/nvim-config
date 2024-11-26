@@ -17,6 +17,7 @@ vim.keymap.set('n', '<C-k>', '<C-w>k', KeymapInfo)
 vim.keymap.set('n', '<C-l>', '<C-w>l', KeymapInfo)
 
 vim.keymap.set('n', '[', '^', KeymapInfo)
+vim.keymap.set('n', ']', '@', KeymapInfo)
 
 -- telescope mappings
 local builtin = require("telescope.builtin")
@@ -27,13 +28,73 @@ local Harpoon = require("harpoon")
 Harpoon:setup()
 
 vim.keymap.set("n", "<leader>h", function() Harpoon.ui:toggle_quick_menu(Harpoon:list()) end, KeymapInfo)
+vim.keymap.set("n", "<leader>a", function() Harpoon:list():add() end)
+
 vim.keymap.set("n", "<leader>1", function() Harpoon:list():select(1) end)
 vim.keymap.set("n", "<leader>2", function() Harpoon:list():select(2) end)
 vim.keymap.set("n", "<leader>3", function() Harpoon:list():select(3) end)
 vim.keymap.set("n", "<leader>4", function() Harpoon:list():select(4) end)
 
---vim.keymap.set("n", "<C-p>", function() Harpoon:list():prev() end, KeymapInfo)
---vim.keymap.set("n", "<C-m>", function() Harpoon:list():next() end, KeymapInfo)
+vim.keymap.set("n", "<leader>p", function() Harpoon:list():prev() end, KeymapInfo)
+vim.keymap.set("n", "<leader>n", function() Harpoon:list():next() end, KeymapInfo)
+
+-- Auto-complete mappings
+local AutoComplete = require "cmp"
+local ls = require("luasnip")
+
+local function Select()
+	print("Pog")
+	if not ls.choice_active() then
+		return
+	end
+
+	ls.change_choice(1)
+end
+
+AutoComplete.setup({
+	snippet = {
+		expand = function(args)
+			require('luasnip').lsp_expand(args.body)
+		end,
+	},
+	window = {
+		completion = AutoComplete.config.window.bordered(),
+		documentation = AutoComplete.config.window.bordered(),
+	},
+	mapping = AutoComplete.mapping.preset.insert({
+		["<C-k>"] = AutoComplete.mapping.complete(),
+		["<C-l>"] = AutoComplete.mapping(function(fallback)
+			if AutoComplete.visible() then
+				AutoComplete.select_next_item()
+			elseif snippy.can_expand_or_advance() then
+				snippy.expand_or_advance()
+			elseif has_words_before() then
+				AutoComplete.complete()
+			else
+				fallback()
+			end
+		end, { "i", "s" }),
+
+		["<C-j>"] = AutoComplete.mapping(function(fallback)
+			if AutoComplete.visible() then
+				AutoComplete.select_prev_item()
+			elseif snippy.can_jump(-1) then
+				snippy.previous()
+			else
+				fallback()
+			end
+		end, { "i", "s" })
+	}),
+	sources = AutoComplete.config.sources({
+		{ name = 'nvim_lsp' },
+		{ name = 'luasnip' }
+	},
+		{
+			{ name = 'buffer' },
+		})
+})
+
+require("luasnip.loaders.from_vscode").lazy_load()
 
 -- Spotify integrantion
 local spotify = require'nvim-spotify'
