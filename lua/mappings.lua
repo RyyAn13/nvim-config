@@ -98,6 +98,9 @@ AutoComplete.setup({
 
 require("luasnip.loaders.from_vscode").lazy_load()
 
+-- Terminal
+require("configs.terminal")
+
 -- Spotify integrantion
 local spotify = require'nvim-spotify'
 
