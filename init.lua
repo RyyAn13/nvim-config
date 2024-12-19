@@ -24,9 +24,7 @@ require("lazy").setup({
 
 	{
 		"lopi-py/luau-lsp.nvim",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
-		},
+		dependencies = { "nvim-lua/plenary.nvim" }
 	},
 
 	{
@@ -42,6 +40,13 @@ require("lazy").setup({
 	{
 		'KadoBOT/nvim-spotify',
 		dependencies = { "nvim-telescope/telescope.nvim" }
+	},
+
+	{
+	  'stevearc/oil.nvim',
+	  opts = {},
+	  dependencies = { { "echasnovski/mini.icons", opts = {} } },
+	  -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
 	},
 
 	{ import = "plugins" },

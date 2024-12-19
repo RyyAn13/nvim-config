@@ -17,7 +17,7 @@ vim.keymap.set('n', '<C-k>', '<C-w>k', KeymapInfo)
 vim.keymap.set('n', '<C-l>', '<C-w>l', KeymapInfo)
 
 vim.keymap.set('n', '[', '^', KeymapInfo)
-vim.keymap.set('n', ']', '@', KeymapInfo)
+vim.keymap.set('i', '<C-l>', '<Del>', KeymapInfo)
 
 -- telescope mappings
 local builtin = require("telescope.builtin")
@@ -30,26 +30,28 @@ Harpoon:setup()
 vim.keymap.set("n", "<leader>h", function() Harpoon.ui:toggle_quick_menu(Harpoon:list()) end, KeymapInfo)
 vim.keymap.set("n", "<leader>a", function() Harpoon:list():add() end)
 
-vim.keymap.set("n", "<leader>1", function() Harpoon:list():select(1) end)
-vim.keymap.set("n", "<leader>2", function() Harpoon:list():select(2) end)
-vim.keymap.set("n", "<leader>3", function() Harpoon:list():select(3) end)
-vim.keymap.set("n", "<leader>4", function() Harpoon:list():select(4) end)
+for Index = 1,7 do
+	vim.keymap.set("n", "<leader>".. Index, function() Harpoon:list():select(Index) end)
+end
 
 vim.keymap.set("n", "<leader>p", function() Harpoon:list():prev() end, KeymapInfo)
 vim.keymap.set("n", "<leader>n", function() Harpoon:list():next() end, KeymapInfo)
+
+-- Oil mappings
+require("oil").setup()
+vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 
 -- Auto-complete mappings
 local AutoComplete = require "cmp"
 local ls = require("luasnip")
 
-local function Select()
-	print("Pog")
+--[[local function Select()
 	if not ls.choice_active() then
 		return
 	end
 
 	ls.change_choice(1)
-end
+end]]
 
 AutoComplete.setup({
 	snippet = {
@@ -62,7 +64,7 @@ AutoComplete.setup({
 		documentation = AutoComplete.config.window.bordered(),
 	},
 	mapping = AutoComplete.mapping.preset.insert({
-		["<C-k>"] = AutoComplete.mapping.complete(),
+		--[[["<C-k>"] = AutoComplete.mapping.complete(),
 		["<C-l>"] = AutoComplete.mapping(function(fallback)
 			if AutoComplete.visible() then
 				AutoComplete.select_next_item()
@@ -83,7 +85,7 @@ AutoComplete.setup({
 			else
 				fallback()
 			end
-		end, { "i", "s" })
+		end, { "i", "s" })]]
 	}),
 	sources = AutoComplete.config.sources({
 		{ name = 'nvim_lsp' },
