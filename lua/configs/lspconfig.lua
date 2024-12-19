@@ -23,7 +23,6 @@ end
 --   capabilities = nvlsp.capabilities,
 -- }
 
-
 -- Luau lsp (Roblox)
 ---@alias luau-lsp.PlatformType "standard" | "roblox"
 ---@alias luau-lsp.RobloxSecurityLevel "None" | "LocalUserSecurity" | "PluginSecurity" | "RobloxScriptSecurity"

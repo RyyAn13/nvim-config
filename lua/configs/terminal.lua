@@ -1,6 +1,16 @@
-local BufData = {
-	buf = -1,
-	win = -1,
+local BufStates = {
+	["1"] = {
+		buf = -1,
+		win = -1,
+	},
+	["2"] = {
+		buf = -1,
+		win = -1,
+	},
+	["3"] = {
+		buf = -1,
+		win = -1,
+	}
 }
 
 local function CreateWindow(PreviusBuf)
@@ -28,8 +38,10 @@ local function CreateWindow(PreviusBuf)
 	return { buf = buf, win = win }
 end
 
-local ToggleTerminal = function()
+local ToggleTerminal = function(BufIndex)
+	local BufData = BufStates[BufIndex]
 	local CREATE_BUFFER = not vim.api.nvim_win_is_valid(BufData.win)
+
 	if CREATE_BUFFER then
 		BufData = CreateWindow(BufData.buf)
 
@@ -38,11 +50,19 @@ local ToggleTerminal = function()
 			vim.cmd.terminal()
 		end
 
+		BufStates[BufIndex] = BufData
+
 		return
 	end
 
+	-- Hide window
 	vim.api.nvim_win_hide(BufData.win)
 end
 
-vim.api.nvim_create_user_command("Floaterminal", ToggleTerminal, {})
-vim.keymap.set({"n", "t"}, "<leader>tt", ToggleTerminal, {})
+for Index = 1,3 do
+	local BufIndex = tostring(Index)
+
+	vim.keymap.set({"n", "t"}, "<leader>t".. BufIndex, function()
+		ToggleTerminal(BufIndex)
+	end, {})
+end
