@@ -17,12 +17,10 @@ vim.keymap.set('n', '<C-j>', '<C-w>j', KeymapInfo)
 vim.keymap.set('n', '<C-k>', '<C-w>k', KeymapInfo)
 vim.keymap.set('n', '<C-l>', '<C-w>l', KeymapInfo)
 
-vim.keymap.set('n', '[', '^', KeymapInfo)
-vim.keymap.set('i', '<C-l>', '<Del>', KeymapInfo)
-
 -- telescope mappings
 local builtin = require("telescope.builtin")
 vim.keymap.set('n', '<C-t>', builtin.find_files, { desc = 'Find Files' })
+vim.keymap.set('n', '<C-g>', builtin.live_grep, { desc = 'Telescope live grep' })
 
 -- Harpoor mappings
 local Harpoon = require("harpoon")
