@@ -18,7 +18,7 @@ require("lualine").setup({
 		lualine_a = { "mode" },
 		lualine_b = { "branch" },
 		lualine_c = { "filename" },
-		lualine_x = { "progress" },
+		lualine_x = { "lsp_status", "progress" },
 		lualine_y = { "filetype", "fileformat" },
 		lualine_z = { "encoding" },
 	}
@@ -62,10 +62,8 @@ vim.keymap.set('n', '<leader>o', function()
 end, { desc = "Toggle hidden files" })
 
 -- Auto-complete mappings
-local AutoComplete = require "cmp"
-local ls = require("luasnip")
-
---[[local function Select()
+--[[local ls = require("luasnip")
+local function Select()
 	if not ls.choice_active() then
 		return
 	end
@@ -73,6 +71,7 @@ local ls = require("luasnip")
 	ls.change_choice(1)
 end]]
 
+local AutoComplete = require "cmp"
 AutoComplete.setup({
 	snippet = {
 		expand = function(args)
@@ -134,12 +133,7 @@ vim.keymap.set("n", "<Leader>dj", "<cmd>lua require'dap'.step_over()<CR>", { des
 vim.keymap.set("n", "<Leader>dk", "<cmd>lua require'dap'.step_out()<CR>", { desc = "Debugger step out" })
 vim.keymap.set("n", "<Leader>dc", "<cmd>lua require'dap'.continue()<CR>", { desc = "Debugger continue" })
 vim.keymap.set("n", "<Leader>db", "<cmd>lua require'dap'.toggle_breakpoint()<CR>", { desc = "Debugger toggle breakpoint" })
-vim.keymap.set(
-"n",
-"<Leader>dd",
-"<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>",
-{ desc = "Debugger set conditional breakpoint" }
-)
+vim.keymap.set("n", "<Leader>dd", "<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>", { desc = "Debugger set conditional breakpoint" })
 vim.keymap.set("n", "<Leader>de", "<cmd>lua require'dap'.terminate()<CR>", { desc = "Debugger reset" })
 vim.keymap.set("n", "<Leader>dr", "<cmd>lua require'dap'.run_last()<CR>", { desc = "Debugger run last" })
 
