@@ -14,44 +14,13 @@ return {
 
 	{ "hrsh7th/cmp-nvim-lsp" },
 
-	{
-		"neovim/nvim-lspconfig",
-
-		config = function()
-			local capabilities = require("cmp_nvim_lsp").default_capabilities()
-			local lspconfig = require("lspconfig")
-
-			--[[lspconfig.ts_ls.setup({
-				capabilites = capabilities,
-			})]]
-
-			--[[lspconfig.html.setup({
-				capabilites = capabilities,
-			})]]
-
-			lspconfig.lua_ls.setup({
-				capabilites = capabilities,
-			})
-
-			--[[lspconfig.biome.setup({
-				capabilities = capabilities,
-			})]]
-
-			--[[lspconfig.rust_analyzer.setup({
-				capabilities = capabilities,
-			})]]
-
-			--[[lspconfig.clangd.setup({
-				capabilities = capabilities,
-			})]]
-
-			require "configs.lspconfig"
-		end,
-	},
+	{ "neovim/nvim-lspconfig" },
 
 	{
 		"lopi-py/luau-lsp.nvim",
-		dependencies = { "nvim-lua/plenary.nvim" }
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
 	},
 
 	-- Usage
@@ -61,9 +30,7 @@ return {
 		dependencies = { "nvim-lua/plenary.nvim" }
 	},
 
-	{
-		"L3MON4D3/LuaSnip"
-	},
+	{ "L3MON4D3/LuaSnip"	},
 
 	{
 		'KadoBOT/nvim-spotify',
@@ -161,7 +128,7 @@ return {
 	},
 
 	{
-		'rcarriga/nvim-dap-ui', 
+		'rcarriga/nvim-dap-ui',
 		dependencies = {"mfussenegger/nvim-dap", "nvim-neotest/nvim-nio"},
 		config = function()
 			require("dapui").setup()

@@ -1,9 +1,15 @@
---require "nvchad.mappings"
 vim.cmd("set relativenumber")
 vim.cmd("set number")
 vim.cmd("set tabstop=3")
 vim.cmd("set softtabstop=3")
 vim.cmd("set shiftwidth=3")
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "*",
+  callback = function()
+    vim.opt.formatoptions:remove("o")
+  end,
+})
 
 -- Colors
 require("catppuccin").setup({
@@ -18,7 +24,7 @@ require("lualine").setup({
 		lualine_a = { "mode" },
 		lualine_b = { "branch" },
 		lualine_c = { "filename" },
-		lualine_x = { "lsp_status", "progress" },
+		lualine_x = { "diagnostics", "lsp_status", "progress" },
 		lualine_y = { "filetype", "fileformat" },
 		lualine_z = { "encoding" },
 	}
@@ -139,3 +145,6 @@ vim.keymap.set("n", "<Leader>dr", "<cmd>lua require'dap'.run_last()<CR>", { desc
 
 -- rustaceanvim
 vim.keymap.set("n", "<Leader>dt", "<cmd>lua vim.cmd('RustLsp testables')<CR>", { desc = "Debugger testables" })
+
+-- Init lsp
+require "configs.lspconfig"
