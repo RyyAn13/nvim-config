@@ -25,10 +25,25 @@ return {
 
 	-- Usage
 	{
+		'nvimdev/dashboard-nvim',
+		event = 'VimEnter',
+		config = function()
+			require "configs.dashboard"
+		end,
+		dependencies = { {'nvim-tree/nvim-web-devicons'}}
+	},
+
+	{
 		"ThePrimeagen/harpoon",
 		branch = "harpoon2",
 		dependencies = { "nvim-lua/plenary.nvim" }
 	},
+
+	{ "matze/vim-move" },
+
+	{ "sitiom/nvim-numbertoggle" },
+
+	{ "folke/twilight.nvim" },
 
 	{ "L3MON4D3/LuaSnip"	},
 

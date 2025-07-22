@@ -53,12 +53,12 @@ Harpoon:setup()
 vim.keymap.set("n", "<leader>h", function() Harpoon.ui:toggle_quick_menu(Harpoon:list()) end, KeymapInfo)
 vim.keymap.set("n", "<leader>a", function() Harpoon:list():add() end)
 
+vim.keymap.set("n", "<leader>p", function() Harpoon:list():prev() end, KeymapInfo)
+vim.keymap.set("n", "<leader>n", function() Harpoon:list():next() end, KeymapInfo)
+
 for Index = 1,7 do
 	vim.keymap.set("n", "<leader>".. Index, function() Harpoon:list():select(Index) end)
 end
-
-vim.keymap.set("n", "<leader>p", function() Harpoon:list():prev() end, KeymapInfo)
-vim.keymap.set("n", "<leader>n", function() Harpoon:list():next() end, KeymapInfo)
 
 -- Oil mappings
 require("oil").setup()
@@ -68,15 +68,6 @@ vim.keymap.set('n', '<leader>o', function()
 end, { desc = "Toggle hidden files" })
 
 -- Auto-complete mappings
---[[local ls = require("luasnip")
-local function Select()
-	if not ls.choice_active() then
-		return
-	end
-
-	ls.change_choice(1)
-end]]
-
 local AutoComplete = require "cmp"
 AutoComplete.setup({
 	snippet = {
@@ -106,19 +97,16 @@ require("configs.terminal")
 -- Discord presence
 require("configs.discord-presence")
 
--- C/C++
-vim.api.nvim_set_keymap('n', '<F5>', ':w<CR>:!gcc % -o %:r && %:r.exe<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<F5>', ':w<CR>:!g++ % -o %:r && %:r.exe<CR>', { noremap = true, silent = true })
-
 -- Use a different key for toggling
 local BooleanToggle = require('nvim-boolean-toggle')
 vim.keymap.set('n', '<leader>w', BooleanToggle.toggle_boolean_or_increment, { desc = 'Toggle boolean or increment' })
 
+-- Twilight
+vim.keymap.set("n", "<Leader>t", "<cmd>Twilight<CR>", { desc = "Toggle focus mode" })
+
 -- Spotify integrantion
 local spotify = require'nvim-spotify'
-
 spotify.setup {
-	-- default opts
 	status = {
 		update_interval = 10000, -- the interval (ms) to check for what's currently playing
 		format = '%s %t by %a' -- spotify-tui --format argument
@@ -145,6 +133,10 @@ vim.keymap.set("n", "<Leader>dr", "<cmd>lua require'dap'.run_last()<CR>", { desc
 
 -- rustaceanvim
 vim.keymap.set("n", "<Leader>dt", "<cmd>lua vim.cmd('RustLsp testables')<CR>", { desc = "Debugger testables" })
+
+-- C/C++
+vim.api.nvim_set_keymap('n', '<F5>', ':w<CR>:!gcc % -o %:r && %:r.exe<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<F5>', ':w<CR>:!g++ % -o %:r && %:r.exe<CR>', { noremap = true, silent = true })
 
 -- Init lsp
 require "configs.lspconfig"

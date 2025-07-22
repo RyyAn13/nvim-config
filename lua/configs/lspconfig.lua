@@ -1,3 +1,10 @@
+local IS_ROBLOX_PROJECT = require("configs.roblox-lsp")
+if IS_ROBLOX_PROJECT then
+	return
+end
+
+local LSPConfig = require("lspconfig")
+
 -- lsps with default config
 local servers = { "lua_ls" }
 
@@ -23,13 +30,6 @@ for _, lsp in ipairs(servers) do
 		on_attach = on_attach
 	}
 end
-
-local IS_ROBLOX_PROJECT = require("configs.roblox-lsp")
-if IS_ROBLOX_PROJECT then
-	return
-end
-
-local LSPConfig = require("lspconfig")
 
 -- Lua lsp (vim)
 LSPConfig.lua_ls.setup({
