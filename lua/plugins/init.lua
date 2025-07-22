@@ -45,6 +45,11 @@ return {
 
 	{ "folke/twilight.nvim" },
 
+	{ 
+		"code-biscuits/nvim-biscuits",
+		dependencies = { "nvim-treesitter/nvim-treesitter" }
+	},
+
 	{ "L3MON4D3/LuaSnip"	},
 
 	{

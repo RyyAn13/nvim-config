@@ -104,6 +104,9 @@ vim.keymap.set('n', '<leader>w', BooleanToggle.toggle_boolean_or_increment, { de
 -- Twilight
 vim.keymap.set("n", "<Leader>t", "<cmd>Twilight<CR>", { desc = "Toggle focus mode" })
 
+-- Buscuits
+require "configs.biscuits"
+
 -- Spotify integrantion
 local spotify = require'nvim-spotify'
 spotify.setup {
