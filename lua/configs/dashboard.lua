@@ -4,7 +4,7 @@ require('dashboard').setup {
 		week_header = {
 			enable = true,
 		},
-		shortcut = {
+		--[[shortcut = {
 			{ desc = '󰊳 Update', group = '@property', action = 'Lazy update', key = 'u' },
 			{
 				icon = ' ',
@@ -26,6 +26,6 @@ require('dashboard').setup {
 				action = 'Telescope dotfiles',
 				key = 'd',
 			},
-		},
+		},]]
 	},
 }
